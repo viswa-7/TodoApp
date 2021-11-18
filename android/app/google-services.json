@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "978402791624",
+    "project_id": "dbapp-b5810",
+    "storage_bucket": "dbapp-b5810.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978402791624:android:6648afc8e95549372ed5fd",
+        "android_client_info": {
+          "package_name": "com.dbapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978402791624-dmt5hsd86q5t2126iqkv7dr0dulscrol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dbapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "978402791624-o61cuonuevm9kfidkcqou1utndpp2oh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3CLTUIN4Lo7X5WY9UQaNg1lCyUcSwI_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978402791624-o61cuonuevm9kfidkcqou1utndpp2oh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
