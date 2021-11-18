@@ -21,8 +21,8 @@ import auth, { firebase } from '@react-native-firebase/auth';
 import {initializeApp} from 'firebase/app'
 import * as database from 'firebase/database'
 const Stack = createNativeStackNavigator();
-import SignIn from './SignIn';
-import ToDo from './ToDo';
+import SignIn from './Screens/SignIn';
+import ToDo from './Screens/ToDo';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDEVpyQ-xbBmXMSZnjl__CdYxj8yzBRf3Y",
