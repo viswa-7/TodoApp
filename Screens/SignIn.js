@@ -6,6 +6,7 @@ import {
     statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast'
 
 const SignIn = (props) => {
     const [loggedIn, setloggedIn] = useState(false);
@@ -31,7 +32,8 @@ const SignIn = (props) => {
                 accessToken,
             );
             await auth().signInWithCredential(credential);
-            props.navigation.navigate('ToDo')
+            Toast.show('Logged in successfully!')
+            // props.navigation.navigate('ToDo')
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 // user cancelled the login flow

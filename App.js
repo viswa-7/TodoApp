@@ -17,7 +17,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth, { firebase } from '@react-native-firebase/auth';
-// import { Provider } from 'react-redux';
+import store from './Redux/store';
+import { Provider } from 'react-redux';
 import {initializeApp} from 'firebase/app'
 import * as database from 'firebase/database'
 const Stack = createNativeStackNavigator();
@@ -56,7 +57,7 @@ const App = () => {
     })
   }
 
-  React.useEffect(() => {
+  React.useEffect(() => { 
     onAuthStateChanged()
     
   }, []);
@@ -64,6 +65,7 @@ const App = () => {
   if (user) {
     console.log('user exists')
     return (
+      <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="ToDo">
           
@@ -76,12 +78,14 @@ const App = () => {
           />
         </Stack.Navigator>
 
-      </NavigationContainer>
+        </NavigationContainer>
+      </Provider>
     )
   }
   if(!user) {
     console.log('user not exists')
     return (
+      <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="SignIn">
           <Stack.Screen
@@ -92,7 +96,8 @@ const App = () => {
             component={SignIn}
           />
         </Stack.Navigator>
-      </NavigationContainer>
+        </NavigationContainer>
+      </Provider>
     )
   }
 }
