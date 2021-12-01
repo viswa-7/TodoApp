@@ -1,42 +1,18 @@
-import React,{useEffect, useState} from 'react'
-import { ADD_TODO, DELETE_TODO } from "../actions/actionTypes";
-import database from '@react-native-firebase/database'
-
-// function getData() {
-    const DB = database().ref().child('ToDoList')
-    // database().ref().parent
-
-    let dummy = []
-
-    DB.on('value', (snapshot) => {
-        const data = [];
-        // data.push(snapshot) 
-        snapshot.forEach(child => {
-            // console.log('child', child) 
-            data.push({
-                // id: child.val().id, 
-                ...data, 
-                task: child.val().task
-            })
-        })
-        dummy.push(data)
-        
-    })
-// }
+import { ADD_TODO, DELETE_TODO, GET_TODO } from "../actions/actionTypes";
 
 const initialState = {
-    todo_list: dummy
+    todo_list: [],
+    posts:[]
 }
 
-export default function (state = initialState, action) { 
+export default function todos(state = {}, action) { 
     
-    console.log('retrieve data',state)
     switch (action.type) { 
         case ADD_TODO: {
             const {  task } = action.payload      
             return {
                 ...state,   
-                todo_list: [...state.todo_list, {  task }]
+                todo_list: task
             };
         }
         // case DELETE_TODO: { 
@@ -46,6 +22,17 @@ export default function (state = initialState, action) {
         //         todo_list: state.filter((todo) => todo.id != id)
         //     };
         // }
+        case GET_TODO: {
+            const { task } = action.payload
+            return {
+                ...state,
+                todo_list: action.payload
+            };
+        }
+        case "FETCH_REQUEST":
+            return state;
+        case "FETCH_SUCCESS": 
+            return { ...state, posts: action.payload };
         default:
             return state;
     }

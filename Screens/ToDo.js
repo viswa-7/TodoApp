@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactPropTypes } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { View, Text, TouchableOpacity, TextInput, FlatList, ToastAndroid } from 'react-native';
 import {
     GoogleSignin,
@@ -11,34 +11,28 @@ import Modal from "react-native-modal";
 import { connect } from 'react-redux';
 import { addTodo } from '../Redux/actions/actions';
 import Toast from 'react-native-simple-toast'
-const ToDo = ({ todo_list, addTodo }) => {
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { returnarry, returnarryAsync, } from '../Redux/actions/actions'
+import { fetchPostsWithRedux } from '../Redux/actions/actions';
+
+const ToDo = ({ todo_list, addTodo, returnarry, dummy_list,props }) => {
     const [visbile, setVisible] = useState(false)
     const [toDo, setToDo] = useState('')
     const [DBArray, setDBArray] = useState([])
 
-    // Redux 
-
     const [task,setTask] = useState('') 
 
     useEffect(() => {
-        // async function fetch() {
-        //     setDBArray(todo_list[0]) 
-        // }
-        // const DatabaseArr = todo_list[0]  
-        // console.log('DatabaseArr',DatabaseArr) 
-        // fetch() 
-        setDBArray(todo_list[0])
-        console.log('To do page response',DBArray)
+        // setDBArray(todo_list[0])
+        returnarry()
     },[todo_list])
 
-    const handleAddTodo = () => {
+    const handleAddTodo = (dispatch) => {
         console.log('handle to do')
-        addTodo(task)
+        dispatch(addTodo(task))
         setTask('')    
-        // database().ref('ToDoList/').push({
-        //     // id:++nextTodoId,
-        //     task: task
-        // })
+        
         setVisible(false) 
     }
 
@@ -54,21 +48,6 @@ const ToDo = ({ todo_list, addTodo }) => {
         }
     };
 
-    // const getData = () => {
-    //     console.log('vvhvs')
-    //     const DB = database().ref().child('ToDoList')
-    //     database().ref().parent
-    //     DB.on('value', (snapshot) => {
-    //         let data = [];
-    //         snapshot.forEach(child => {
-    //             data.push({
-    //                 todo: child.val().ToDo
-    //             })
-    //         })
-    //         setDBArray(data)
-    //     })
-
-    // }
 
     return (
         <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
@@ -85,7 +64,7 @@ const ToDo = ({ todo_list, addTodo }) => {
             
             <View style={{flex:1,alignItems:'center'}}>
              <FlatList
-                    data={todo_list[0]}
+                    data={todo_list}
                     contentContainerStyle={{ width: '100%' }}
                     renderItem={({ item }) => { 
                         return (
@@ -121,7 +100,7 @@ const ToDo = ({ todo_list, addTodo }) => {
                         <TextInput onChangeText={(val) => setTask(val)} placeholder='Enter ToDo' style={{ backgroundColor: 'white', width: '100%', height: 40, borderWidth: 1, borderRadius: 5, borderColor: 'grey', marginTop: 5 }} />
                     </View>
 
-                    <TouchableOpacity onPress={handleAddTodo} style={{ backgroundColor: 'black', borderRadius: 10, width: '35%', height: 35, alignItems: 'center', justifyContent: 'center', marginTop: 20, elevation: 2 }}>
+                    <TouchableOpacity onPress={() => { addTodo(task),setVisible(false) }} style={{ backgroundColor: 'black', borderRadius: 10, width: '35%', height: 35, alignItems: 'center', justifyContent: 'center', marginTop: 20, elevation: 2 }}>
                         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Submit</Text>
                     </TouchableOpacity>
                 </View>
@@ -132,13 +111,16 @@ const ToDo = ({ todo_list, addTodo }) => {
 
 const mapStateToProps = state => {
     return {
-        todo_list:state.todos.todo_list
+        todo_list: state.todos.todo_list,
+        dummy_list:state.todos.posts
     }
 }
-const mapDispatchToProps = { addTodo }
 
-// const mapDispatchToProps = dispatch => ({
-//     addTodo:()=>dispatch(addTodo)
-// })
+// const mapDispatchToProps = { fetchPostsWithRedux }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToDo);
+const mapDispatchToProps = dispatch => ({
+    addTodo:(task)=>dispatch(addTodo(task)),
+    returnarry: () => dispatch(returnarry())
+})
+ 
+export default connect(mapStateToProps,mapDispatchToProps)(ToDo); 

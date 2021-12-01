@@ -31,9 +31,6 @@ const firebaseConfig = {
   databaseURL: "https://dbapp-b5810-default-rtdb.firebaseio.com",
   projectId: "dbapp-b5810",
   storageBucket: "dbapp-b5810.appspot.com",
-  // messagingSenderId: "978402791624",
-  // appId: "1:978402791624:web:0cd9c28a5b7cd56d2ed5fd",
-  // measurementId: "G-9T2PG9VRS9"
 };
 
 if (!firebase.apps.length) {
